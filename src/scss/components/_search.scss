@@ -1,0 +1,112 @@
+// @file
+// Search module
+
+.search {
+
+}
+
+$_search_icon_pos: 65px;
+$_search_icon_size: 15px;
+$_search_icon_border: 10px;
+.search__icon {
+  @include icon('search');
+
+  width: $_search_icon_size;
+  height: $_search_icon_size;
+  display: block;
+
+  position: fixed;
+  top: $_search_icon_pos;
+  left: $_search_icon_pos;
+  z-index: 100;
+
+  border-radius: 50%;
+  border: $_search_icon_border solid aquamarine;
+
+  background: aquamarine;
+
+  font-size: 0;
+
+  transition-property: border-width, top, left;
+  transition-duration: .25s;
+
+
+  &:before {
+    font-size: $_search_icon_size;
+  }
+
+
+  &:hover {
+    top: $_search_icon_pos - ($_search_icon_border * .5);
+    left: $_search_icon_pos - ($_search_icon_border * .5);
+
+    border-width: $_search_icon_border * 1.5;
+
+    cursor: pointer;
+  }
+}
+
+$_search_overlay_pos: 82px;
+$_search_overlay_size: 3000px;
+$_search_overlay_duration: .5s;
+.search__wrapper {
+  width: 0px;
+  height: 0px;
+
+  position: fixed;
+  top: $_search_overlay_pos;
+  left: $_search_overlay_pos;
+  z-index: 90;
+
+  border-radius: 50%;
+
+  background: rebeccapurple;
+
+  transition-property: width, height, top, left;
+  transition-duration: $_search_overlay_duration;
+
+  overflow: hidden;
+
+
+  &--show {
+    width: $_search_overlay_size;
+    height: $_search_overlay_size;
+
+    top: $_search_overlay_pos - ($_search_overlay_size / 2);
+    left: $_search_overlay_pos - ($_search_overlay_size / 2);
+  }
+}
+
+
+$_search_form_pos: 40px;
+.search__form {
+  position: relative;
+  top: $_search_form_pos;
+  left: $_search_form_pos;
+
+  transition-property: top, left;
+  transition-duration: $_search_overlay_duration;
+
+
+  .search__wrapper--show & {
+    top: ($_search_overlay_size / 2) + $_search_form_pos;
+    left: ($_search_overlay_size / 2) + $_search_form_pos;
+  }
+
+
+  input[type="text"], button {
+    float: left;
+    padding: 1em;
+
+    border: none;
+
+    font-size: 1.5em;
+  }
+
+
+  button {
+    background: aqua;
+
+    cursor: pointer;
+  }
+}

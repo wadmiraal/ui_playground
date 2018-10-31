@@ -1,0 +1,10 @@
+/**
+ * @file
+ * Helper mixins.
+ */
+
+@import "../../fonts/icomoon/icomoon";
+@mixin icon($name) {
+  @extend %icon;
+  @extend %icon-#{$name};
+}
