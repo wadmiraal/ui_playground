@@ -5,6 +5,7 @@
 
 }
 
+
 $_search_icon_pos: 65px;
 $_search_icon_size: 15px;
 $_search_icon_border: 10px;
@@ -14,11 +15,9 @@ $_search_icon_border: 10px;
   width: $_search_icon_size;
   height: $_search_icon_size;
   display: block;
-
   position: fixed;
   top: $_search_icon_pos;
   left: $_search_icon_pos;
-  z-index: 100;
 
   border-radius: 50%;
   border: $_search_icon_border solid aquamarine;
@@ -29,6 +28,8 @@ $_search_icon_border: 10px;
 
   transition-property: border-width, top, left;
   transition-duration: .25s;
+
+  z-index: 100;
 
 
   &:before {
@@ -46,32 +47,31 @@ $_search_icon_border: 10px;
   }
 }
 
+
 $_search_overlay_pos: 82px;
-$_search_overlay_size: 3000px;
+$_search_overlay_size: 4000px;
 $_search_overlay_duration: .5s;
 .search__wrapper {
-  width: 0px;
-  height: 0px;
-
+  width: 0;
+  height: 0;
   position: fixed;
   top: $_search_overlay_pos;
   left: $_search_overlay_pos;
-  z-index: 90;
 
   border-radius: 50%;
 
-  background: rebeccapurple;
+  background: cadetblue;
 
   transition-property: width, height, top, left;
   transition-duration: $_search_overlay_duration;
 
   overflow: hidden;
+  z-index: 90;
 
 
   &--show {
     width: $_search_overlay_size;
     height: $_search_overlay_size;
-
     top: $_search_overlay_pos - ($_search_overlay_size / 2);
     left: $_search_overlay_pos - ($_search_overlay_size / 2);
   }
