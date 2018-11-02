@@ -60,4 +60,4 @@ gulp.task( 'watch', [ 'sass', 'js', 'browser-sync', 'fonts' ], function() {
   gulp.watch( [ './src/scss/**/*.scss', './src/js/**/*.js', 'index.html' ], [ 'sass', 'js' ] ).on( 'change', browserSync.reload );
 });
 
-gulp.task( 'default', [ 'sass', 'js' ] );
+gulp.task( 'default', [ 'sass', 'js', 'fonts' ] );
