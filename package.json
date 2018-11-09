@@ -41,6 +41,8 @@
     "gulp-sourcemaps": "^2.6.4",
     "jasmine": "^3.3.0",
     "jasmine-es6": "^0.4.3",
+    "jasmine_dom_matchers": "^1.4.0",
+    "jsdom": "^13.0.0",
     "nyc": "^13.1.0",
     "sass": "^1.14.3",
     "webpack-stream": "^5.1.1"

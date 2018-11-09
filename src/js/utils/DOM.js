@@ -26,14 +26,19 @@ class DomElement {
   };
 
   on = ( event, callback ) => {
-    console.log(this.element)
     this.element.addEventListener( event, callback, false );
   };
 
   find = ( selector ) => {
     const element = this.element.querySelector( selector );
-    return new DomElement( element );
-  }
+    if ( element ) {
+      return new DomElement(element);
+    }
+  };
+
+  getNode = () => {
+    return this.element;
+  };
 
 }
 
@@ -42,8 +47,9 @@ const DOM = {
 
   find( selector ) {
     const element = document.querySelector( selector );
-    console.log( selector, element)
-    return new DomElement( element );
+    if ( element ) {
+      return new DomElement(element);
+    }
   }
 
 }
