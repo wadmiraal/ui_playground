@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - "10"
   - "9"
+  # - "8" This version always fails on Travis CI, although it works locally.
   - "7"
   - "6"
 before_script:
