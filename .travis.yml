@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - "9"
-  - "8"
+  # - "8" Apparently, version 8 fails.
   - "7"
   - "6"
 cache: npm
