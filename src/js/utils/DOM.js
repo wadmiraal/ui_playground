@@ -1,8 +1,8 @@
 
 class DomElement {
 
-  constructor( element) {
-    this.element = element;
+  constructor( elements ) {
+    this.elements = Array.from( elements );
   }
 
   toggleClass = ( classname ) => {
@@ -14,30 +14,42 @@ class DomElement {
   };
 
   hasClass = ( classname ) => {
-    return this.element.classList.contains( classname );
+    return this.elements.reduce( ( acc, item ) => {
+      if ( !acc ) {
+        return item.classList.contains( classname );
+      }
+      return acc;
+    }, false );
   };
 
   addClass = ( classname ) => {
-    this.element.classList.add( classname );
+    this.elements.forEach( ( item ) => item.classList.add( classname ) );
   };
 
   removeClass = ( classname ) => {
-    this.element.classList.remove( classname );
+    this.elements.forEach( ( item ) => item.classList.remove( classname ) );
   };
 
   on = ( event, callback ) => {
-    this.element.addEventListener( event, callback, false );
+    this.elements.forEach( ( item ) => item.addEventListener( event, callback, false ) );
   };
 
   find = ( selector ) => {
-    const element = this.element.querySelector( selector );
-    if ( element ) {
-      return new DomElement(element);
+    const list = [];
+    this.elements.forEach( ( item ) => {
+      const elements = item.querySelectorAll( selector );
+      if ( elements.length ) {
+        list.push( ...elements );
+      }
+    } );
+
+    if ( list.length ) {
+      return new DomElement( list );
     }
   };
 
   getNode = () => {
-    return this.element;
+    return this.elements.length === 1 ? this.elements[ 0 ] : this.elements;
   };
 
 }
@@ -46,12 +58,12 @@ class DomElement {
 const DOM = {
 
   find( selector ) {
-    const element = document.querySelector( selector );
-    if ( element ) {
-      return new DomElement(element);
+    const elements = document.querySelectorAll( selector );
+    if ( elements.length ) {
+      return new DomElement( elements );
     }
   }
 
-}
+};
 
 export default DOM;

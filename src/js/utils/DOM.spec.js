@@ -8,7 +8,7 @@ describe( "DOM manipulation utility", function() {
 
   beforeEach(function() {
     // Mock the global document object.
-    global.document = new JSDOM(`<body><div class="my-other-element"></div><div class="my-element"><span class="my-child-element"></span></div></body>`).window.document;
+    global.document = new JSDOM(`<body><div class="my-other-element"></div><div class="my-element"><span class="my-child-element"></span></div><ul><li class="multiple">Hi</li><li class="multiple with-class">There</li></ul><span class="multiple">Last one</span></body>`).window.document;
 
     // Also mock the global window object, for Jasmine DOM Matchers.
     global.window = {};
@@ -45,6 +45,31 @@ describe( "DOM manipulation utility", function() {
     expect( element.hasClass( 'not-my-element' ) ).toBe( false );
   });
 
+  it( "should allow to manipulate elements across multiple parents", function() {
+    const element = DOM.find( '.multiple' );
+
+    expect( element.hasClass( 'with-class' ) ).toBe( true );
+    expect( 'span.multiple' ).not.toHaveClass( 'with-class' );
+    expect( 'li.multiple:nth-child(2)' ).toHaveClass( 'with-class' );
+
+    element.addClass( 'with-class' );
+    expect( 'span.multiple' ).toHaveClass( 'with-class' );
+    expect( 'li.multiple:first-child' ).toHaveClass( 'with-class' );
+
+    element.removeClass( 'with-class' );
+    expect( 'span.multiple' ).not.toHaveClass( 'with-class' );
+    expect( 'li.multiple:first-child' ).not.toHaveClass( 'with-class' );
+
+    element.toggleClass( 'with-class' );
+    expect( 'span.multiple' ).toHaveClass( 'with-class' );
+    expect( 'li.multiple:first-child' ).toHaveClass( 'with-class' );
+    expect( 'li.multiple:nth-child(2)' ).toHaveClass( 'with-class' );
+    element.toggleClass( 'with-class' );
+    expect( 'span.multiple' ).not.toHaveClass( 'with-class' );
+    expect( 'li.multiple:first-child' ).not.toHaveClass( 'with-class' );
+    expect( 'li.multiple:nth-child(2)' ).not.toHaveClass( 'with-class' );
+  });
+
   it( "should return elements with easy event listener methods", function() {
     const element = DOM.find( '.my-element' );
     const eventHandler = jasmine.createSpy( 'eventHandler' );
@@ -65,6 +90,15 @@ describe( "DOM manipulation utility", function() {
 
     const none = element.find( '.my-other-element' );
     expect( none ).not.toBeDefined();
+  });
+
+  it( "should return the actual element when it's on its own, or an array if multiple are concerned", function() {
+    let element;
+    element = DOM.find( '.multiple' );
+    expect( element.getNode() ).toHaveLength( 3 );
+
+    element = DOM.find( 'body' );
+    expect( element.getNode() ).toEqual( global.document.querySelector( 'body' ) );
   });
 
 });
