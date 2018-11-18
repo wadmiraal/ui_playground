@@ -6,7 +6,8 @@
 }
 
 
-$_search_icon_pos: 65px;
+$_search_icon_pos: 25px;
+$_search_icon_desktop_pos: 65px;
 $_search_icon_size: 15px;
 $_search_icon_border: 10px;
 .search__icon {
@@ -48,7 +49,8 @@ $_search_icon_border: 10px;
 }
 
 
-$_search_overlay_pos: 82px;
+$_search_overlay_pos: 42px;
+$_search_overlay_desktop_pos: 82px;
 $_search_overlay_size: 4000px;
 $_search_overlay_duration: .5s;
 .search__wrapper {
@@ -64,6 +66,7 @@ $_search_overlay_duration: .5s;
 
   transition-property: width, height, top, left;
   transition-duration: $_search_overlay_duration;
+  transform: translateZ(0);
 
   overflow: hidden;
   z-index: 90;
