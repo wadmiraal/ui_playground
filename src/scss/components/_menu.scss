@@ -1,0 +1,88 @@
+// @file
+// Menu module
+
+.menu {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+
+  .menu__item {
+    position: relative;
+    margin-bottom: -70%;
+  }
+
+  .menu__item--open {
+    margin-bottom: 0;
+    z-index: 200;
+  }
+
+
+  &--open {
+
+    .menu__item {
+      display: block;
+      margin-bottom: 0;
+    }
+
+    .menu__item--open {
+      transform: rotate(405deg);
+    }
+  }
+}
+
+
+$_menu_item_size: 15px;
+$_menu_item_border: 10px;
+.menu__item {
+  width: $_menu_item_size;
+  height: $_menu_item_size;
+  $__margin: $_menu_item_size + $_menu_item_border;
+  margin: $__margin $__margin 0 $__margin;
+  padding: 0;
+  box-sizing: content-box;
+
+  border-radius: 50%;
+  border: $_menu_item_border solid red;
+
+  background-color: red;
+
+  color: white;
+  font-weight: bold;
+  font-size: 0;
+
+  transition-property: border-width, margin, transform;
+  transition-duration: .25s;
+
+
+  &:before {
+    font-size: $_menu_item_size;
+  }
+
+
+  &:hover {
+    $__margin: $_menu_item_size + ($_menu_item_border / 2);
+    margin: $__margin $__margin 0 $__margin;
+
+    border-width: $_menu_item_border * 1.5;
+
+    cursor: pointer;
+  }
+}
+
+.menu__item--open {
+  @include icon('plus');
+}
+.menu__item[data-trigger-action="add-note"] {
+  @include icon('quill');
+}
+.menu__item[data-trigger-action="add-picture"] {
+  @include icon('camera');
+}
+.menu__item[data-trigger-action="add-link"] {
+  @include icon('link');
+}
