@@ -9,6 +9,7 @@ const gulp = require( 'gulp' ),
 
 gulp.task( 'browser-sync', function() {
   browserSync.init({
+    open: false,
     server: {
       baseDir: './'
     }
