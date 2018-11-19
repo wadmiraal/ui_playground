@@ -8,7 +8,7 @@ describe( "DOM manipulation utility", function() {
 
   beforeEach(function() {
     // Mock the global document object.
-    global.document = new JSDOM(`<body><div class="my-other-element"></div><div class="my-element"><span class="my-child-element"></span></div><ul><li class="multiple">Hi</li><li class="multiple with-class">There</li></ul><span class="multiple">Last one</span></body>`).window.document;
+    global.document = new JSDOM(`<body><div class="my-other-element"></div><div class="my-element"><span class="my-child-element">Ahem</span></div><ul><li class="multiple">Hi</li><li class="multiple with-class">There</li></ul><span class="multiple">Last one</span></body>`).window.document;
 
     // Also mock the global window object, for Jasmine DOM Matchers.
     global.window = {};
@@ -99,6 +99,30 @@ describe( "DOM manipulation utility", function() {
 
     element = DOM.find( 'body' );
     expect( element.getNode() ).toEqual( global.document.querySelector( 'body' ) );
+  });
+
+  it( "should return the element's content when calling html() with no parameters", function() {
+    let element;
+
+    element = DOM.find( '.my-element' );
+    expect( element.html() ).toEqual( '<span class="my-child-element">Ahem</span>' );
+
+    element = DOM.find( '.multiple' );
+    expect( element.html() ).toHaveLength( 3 );
+    expect( element.html()[ 0 ] ).toEqual( 'Hi' );
+  });
+
+  it( "should set the element's content when calling html() with a parameter", function() {
+    const element = DOM.find( '.my-child-element' );
+    const content = '<span>What?</span>';
+
+    element.html( content );
+    expect( global.document.querySelector( '.my-child-element' ).innerHTML ).toEqual( content );
+  });
+
+  it( "should throw an error when calling html() with something different from a string", function() {
+    const element = DOM.find( '.my-child-element' );
+    expect( () => { element.html([ 'a string' ]) } ).toThrow( new Error( "Content can only be a string." ) );
   });
 
 });

@@ -34,6 +34,22 @@ class DomElement {
     this.elements.forEach( ( item ) => item.addEventListener( event, callback, false ) );
   };
 
+  html = ( content ) => {
+    if ( typeof content === 'undefined' ) {
+      if ( this.elements.length === 1 ) {
+        return this.elements[ 0 ].innerHTML;
+      } else {
+        const result = [];
+        this.elements.forEach( ( item ) => result.push( item.innerHTML ) );
+        return result;
+      }
+    } else if (typeof content === 'string' ) {
+      this.elements.forEach( ( item ) => item.innerHTML = content );
+    } else {
+      throw new Error( "Content can only be a string." );
+    }
+  };
+
   find = ( selector ) => {
     const list = [];
     this.elements.forEach( ( item ) => {
