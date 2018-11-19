@@ -74,7 +74,7 @@ describe( "DOM manipulation utility", function() {
     const element = DOM.find( '.my-element' );
     const eventHandler = jasmine.createSpy( 'eventHandler' );
 
-    element.on( 'click', eventHandler() );
+    element.on( 'click', eventHandler );
     const e = global.document.createEvent( 'MouseEvents' );
     e.initEvent( 'click', true, true );
     global.document.querySelector( '.my-element' ).dispatchEvent( e );
